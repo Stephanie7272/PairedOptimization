@@ -48,7 +48,7 @@ public class PlayerDeath : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         deathScreen.SetActive(true);
-        Time.timeScale = 1;
+        Time.timeScale = 0;
     }
 
   
