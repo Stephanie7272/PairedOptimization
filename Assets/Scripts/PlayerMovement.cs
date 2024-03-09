@@ -39,10 +39,13 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity = new Vector2(rb.velocity.x, jump);
         }
-
-        UpdateAnimation();
     }
 
+
+    private void FixedUpdate()
+    {
+        UpdateAnimation();
+    }
     private void UpdateAnimation()
     {
         MovementState state;
