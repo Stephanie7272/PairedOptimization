@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private BoxCollider2D coll;
     private SpriteRenderer sprite;
     private Animator anim;
     private float dirX = 0f;
-
     [SerializeField] private float speed = 7f;
     [SerializeField] private float jump = 14f;
     [SerializeField] private LayerMask ground;
@@ -32,13 +32,13 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        dirX = Input.GetAxisRaw("Horizontal");
+        //dirX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(dirX * speed, rb.velocity.y);
 
-        if(Input.GetButtonDown("Jump") && IsGround())
-        {
-            rb.velocity = new Vector2(rb.velocity.x, jump);
-        }
+        //if(Input.GetButtonDown("Jump") && IsGround())
+        //{
+            //rb.velocity = new Vector2(rb.velocity.x, jump);
+        //}
     }
 
 
@@ -89,6 +89,20 @@ public class PlayerMovement : MonoBehaviour
             Time.timeScale = 0;
             winScreen.SetActive(true);
         }
+    }
+
+    public void Move(InputAction.CallbackContext context)
+    {
+        dirX = context.ReadValue<Vector2>().x;
+    }
+
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if (context.performed && IsGround())
+        {
+        rb.velocity = new Vector2(rb.velocity.x, jump);
+        }
+
     }
 
 }
